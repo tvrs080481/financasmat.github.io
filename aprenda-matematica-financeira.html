@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <title>Aprenda Matemática Financeira</title>
+    <link rel="stylesheet" href="main/css/styles.css">
+    <style>
+      body {
+        font-size: 1.25rem;
+        background: linear-gradient(135deg, #181d23 0%, #232a36 100%);
+        color: #fff;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .aprenda-container {
+        max-width: 900px;
+        margin: 48px auto;
+        background: var(--bg-soft, #232a36);
+        border-radius: 20px;
+        box-shadow: 0 8px 36px rgba(0,0,0,0.13);
+        padding: 48px 36px 36px 36px;
+        color: #fff;
+      }
+      .aprenda-container h1, .aprenda-container h2 {
+        color: #ffe872;
+      }
+      .aprenda-container h1 {
+        font-size: 2.7rem;
+        margin-bottom: 22px;
+        letter-spacing: 0.02em;
+      }
+      .aprenda-container h2 {
+        font-size: 1.7rem;
+        margin-top: 36px;
+      }
+      .exemplo {
+        background: #2a5298cc;
+        border-left: 6px solid #ffe872;
+        color: #fff;
+        padding: 16px 22px;
+        margin: 22px 0;
+        border-radius: 10px;
+        font-weight: 500;
+        font-size: 1.18rem;
+      }
+      ul {
+        margin-bottom: 18px;
+        margin-left: 28px;
+      }
+      p, li {
+        font-size: 1.22rem;
+        line-height: 2.0;
+        color: #fff;
+      }
+      .btn-voltar {
+        position: fixed;
+        top: 24px;
+        right: 32px;
+        background: linear-gradient(90deg, #2a5298 60%, #1e3c72 100%);
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 28px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: 0 2px 12px rgba(42,82,152,0.13);
+        cursor: pointer;
+        z-index: 1000;
+        transition: background 0.2s, transform 0.2s;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn-voltar:hover {
+        background: linear-gradient(90deg, #1e3c72 60%, #2a5298 100%);
+        transform: scale(1.05);
+      }
+      @media (max-width: 600px) {
+        .aprenda-container {
+          padding: 18px 6px 18px 6px;
+        }
+        .aprenda-container h1 {
+          font-size: 1.5rem;
+        }
+        .btn-voltar {
+          top: 10px;
+          right: 10px;
+          padding: 8px 16px;
+          font-size: 0.95rem;
+        }
+      }
+    </style>
+  </head>
+<body>
+  <a href="index.html" class="btn-voltar" title="Voltar para o controle de finanças">← Voltar ao Controle</a>
+
+  <div class="aprenda-container">
+    <h1>Matemática Financeira para Iniciantes</h1>
+    <p>Esta página é para você que quer entender os conceitos matemáticos usados no controle de finanças pessoais, mesmo sem ter experiência prévia. Vamos explicar tudo de forma simples e com exemplos práticos!</p>
+
+    <!-- Bloco de cotações e estimativas -->
+    <!--#include file="main/cotacoes-bloco.html" -->
+    <div class="cotacoes-bloco">
+      <h2>Estimativas e Cotações do Mercado (22/08/2025)</h2>
+      <ul>
+        <li><b>Ibovespa:</b> 137.175,88 (+1,98%)</li>
+        <li><b>Euro (EUR):</b> Consulte <a href="https://www.google.com/finance/quote/EUR-BRL" target="_blank" style="color:#ffe872;">Google Finanças</a> para cotação atualizada</li>
+        <li><b>Dólar (USD):</b> Consulte <a href="https://www.google.com/finance/quote/USD-BRL" target="_blank" style="color:#ffe872;">Google Finanças</a> para cotação atualizada</li>
+        <li><b>Real (BRL):</b> Consulte <a href="https://www.google.com/finance/quote/BRL-USD" target="_blank" style="color:#ffe872;">Google Finanças</a> para cotação internacional</li>
+      </ul>
+      <p style="font-size:1rem;color:#ffe872;">* As cotações são dinâmicas e podem variar ao longo do dia. Clique nos links para ver o valor em tempo real.</p>
+    </div>
+
+    <h2>1. O que é Entrada e Saída?</h2>
+    <ul>
+      <li><b>Entrada</b>: Todo dinheiro que você recebe (salário, mesada, vendas, etc).</li>
+      <li><b>Saída</b>: Todo dinheiro que você gasta (contas, compras, lazer, etc).</li>
+    </ul>
+    <div class="exemplo">
+      <b>Exemplo:</b> Se você recebe R$ 7000 de salário (entrada) e paga R$ 1000 de transporte (saída), seu saldo é R$ 6000.
+    </div>
+
+    <h2>2. Como calcular o Saldo?</h2>
+    <p>O <b>saldo</b> é a diferença entre tudo que entrou e tudo que saiu:</p>
+    <div class="exemplo">
+      <b>Saldo = Entradas - Saídas</b><br>
+      Se você teve R$ 1500 de entradas e R$ 900 de saídas:<br>
+      <b>Saldo = 1500 - 900 = 600</b>
+    </div>
+
+    <h2>3. O que são Gráficos?</h2>
+    <ul>
+      <li><b>Gráfico de Linha</b>: Mostra a evolução das entradas e saídas ao longo do tempo (por mês).</li>
+      <li><b>Gráfico Pizza</b>: Mostra a proporção entre entradas, saídas e saldo.</li>
+    </ul>
+    <div class="exemplo">
+      <b>Exemplo de gráfico pizza:</b> Se 70% do seu dinheiro é entrada e 30% é saída, o gráfico mostra isso visualmente.
+    </div>
+
+
+    <h2>4. Por que controlar as finanças?</h2>
+    <ul>
+      <li>Evita dívidas e surpresas.</li>
+      <li>Ajuda a planejar sonhos e objetivos.</li>
+      <li>Mostra para onde seu dinheiro está indo.</li>
+    </ul>
+
+    <h2>5. Dicas para aprender mais</h2>
+    <ul>
+      <li>Pratique lançando entradas e saídas reais do seu dia a dia.</li>
+      <li>Pesquise sobre <b>educação financeira</b> e <b>juros compostos</b> para avançar.</li>
+      <li>Use os gráficos para visualizar seus hábitos e melhorar suas decisões.</li>
+    </ul>
+
+  <!-- Removido link redundante de voltar, pois já há botão fixo -->
+  </div>
+</body>
+</html>

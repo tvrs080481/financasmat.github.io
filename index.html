@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<html>
+<head>
+  <title>Controle de Finanças</title>
+  <link rel="stylesheet" href="main/css/styles.css">
+</head>
+<body>
+  <a href="aprenda-matematica-financeira.html" class="btn-aprenda" title="Aprenda Matemática Financeira">📘 Aprenda Matemática</a>
+  <div class="container">
+    <h1>Controle de Finanças</h1>
+    <div class="motivacional-box" id="motivacionalBox">Organize seu dinheiro e conquiste seus objetivos! 🚀</div>
+    <div class="saldo-box">
+      <h2>Saldo Atual: <span id="saldo">R$ 0,00</span></h2>
+    </div>
+    <form id="form-transacao">
+      <input type="text" id="descricao" placeholder="Descrição" required>
+      <input type="number" id="valor" placeholder="Valor (ex: 100.00)" step="0.01" required>
+
+      <input type="date" id="data" required>
+      <select id="tipo">
+        <option value="entrada">Entrada</option>
+        <option value="saida">Saída</option>
+      </select>
+      <button type="submit">Adicionar</button>
+    </form>
+  <div class="grafico-box" style="margin: 32px 0; background: var(--bg-soft); border-radius: 14px; box-shadow: 0 2px 10px rgba(0,0,0,.08); padding: 18px 16px;">
+    <h3 style="color: var(--accent); font-size: 1.1rem; margin-top:0;">Gráfico de Entradas e Saídas (Linha)</h3>
+  <canvas id="graficoTransacoes" height="180"></canvas>
+  </div>
+  <div class="grafico-box" style="margin: 32px 0; background: var(--bg-soft); border-radius: 14px; box-shadow: 0 2px 10px rgba(0,0,0,.08); padding: 18px 16px; display: flex; flex-wrap: wrap; gap: 32px; justify-content: center;">
+    <div style="flex:1; min-width:320px; max-width:400px;">
+      <h3 style="color: var(--accent); font-size: 1.1rem; margin-top:0;">Saldo acumulado</h3>
+      <canvas id="chartBalance" height="180"></canvas>
+    </div>
+    <div style="flex:1; min-width:320px; max-width:400px;">
+      <h3 style="color: var(--accent); font-size: 1.1rem; margin-top:0;">Entradas vs Saídas</h3>
+      <canvas id="chartDonut" height="180"></canvas>
+    </div>
+  </div>
+
+
+
+  <div class="historico-box">
+    <h3>Histórico de Transações</h3>
+  <button id="btn-apagar-tudo" style="margin:12px auto 18px auto;background:#f85149;color:#fff;font-weight:700;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;box-shadow:0 2px 8px #f8514922;">🗑️ Apagar todas as finanças</button>
+    <ul id="historico"></ul>
+  </div>
+  <!-- Modal de confirmação -->
+  <div id="modal-confirmacao" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.55);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#232a36;padding:32px 24px;border-radius:16px;box-shadow:0 4px 24px #0008;text-align:center;max-width:90vw;">
+      <h3 style="color:#ffe872;">Tem certeza que deseja apagar todo o histórico?</h3>
+      <p style="color:#fff;margin:18px 0 28px 0;">Esta ação não pode ser desfeita.</p>
+      <button id="confirmar-apagar" style="background:#f85149;color:#fff;font-weight:700;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;margin-right:18px;">Sim, apagar tudo</button>
+      <button id="cancelar-apagar" style="background:#232a36;color:#ffe872;font-weight:700;border:1.5px solid #ffe872;border-radius:8px;padding:10px 22px;cursor:pointer;">Cancelar</button>
+    </div>
+  </div>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="main/js/script.js"></script>
+
+  <footer class="rodape-trabalho">
+    Trabalho desenvolvido por <b>Bernardo</b> e <b>Thalita V.</b> &nbsp;|&nbsp; <span style="font-size:0.98em;">© Todos os direitos reservados</span>
+  </footer>
+  <style>
+    .rodape-trabalho {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100vw;
+      background: linear-gradient(90deg, #232a36 60%, #2a5298 100%);
+      color: #ffe872;
+      font-size: 1.05rem;
+      text-align: center;
+      padding: 12px 0 10px 0;
+      letter-spacing: 0.5px;
+      border-radius: 0;
+      box-shadow: 0 -2px 12px #0003;
+      z-index: 9999;
+    }
+    @media (max-width: 600px) {
+      .rodape-trabalho {
+        font-size: 0.95rem;
+        padding: 8px 0 8px 0;
+      }
+    }
+  </style>
+  <script>
+    // Botão de apagar tudo e modal de confirmação
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnApagar = document.getElementById('btn-apagar-tudo');
+      const modal = document.getElementById('modal-confirmacao');
+      const btnConfirmar = document.getElementById('confirmar-apagar');
+      const btnCancelar = document.getElementById('cancelar-apagar');
+      // Só exibe o botão se houver transações
+      const transacoes = JSON.parse(localStorage.getItem('financas_transacoes')) || [];
+      if (btnApagar) {
+        btnApagar.style.display = (transacoes.length > 0) ? 'block' : 'none';
+      }
+      if(btnApagar && modal && btnConfirmar && btnCancelar) {
+        btnApagar.onclick = function() {
+          modal.style.display = 'flex';
+        };
+        btnCancelar.onclick = function() {
+          modal.style.display = 'none';
+        };
+        btnConfirmar.onclick = function() {
+          localStorage.removeItem('financas_transacoes');
+          modal.style.display = 'none';
+          location.reload();
+        };
+      }
+    });
+  </script>
+</body>
+</html>
+<style>
+  .btn-aprenda {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    background: linear-gradient(90deg, #2a5298 60%, #1e3c72 100%);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 2px 12px rgba(42,82,152,0.13);
+    cursor: pointer;
+    z-index: 1000;
+    transition: background 0.2s, transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-aprenda:hover {
+    background: linear-gradient(90deg, #1e3c72 60%, #2a5298 100%);
+    transform: scale(1.05);
+  }
+  @media (max-width: 600px) {
+    .btn-aprenda {
+      top: 10px;
+      right: 10px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+    }
+  }
+</style>
+<body class="dark">
+  <!-- Cabeçalho -->
+  <header class="header">
+    <button id="themeToggle" class="btn-theme"><i class='bx bx-moon'></i></button>
+  </header>
+  <script src="main/js/script.js"></script>
+</body>
+            </body>
+            </html>
+</html>
